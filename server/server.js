@@ -46,17 +46,16 @@ app.get("/api/weather", async (req, res) => {
   try {
     const city = req.query.city || "Bengaluru";
     const apiKey = process.env.WEATHER_API_KEY;
-    // const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+   
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     const response = await axios.get(url);
-    // const { temp } = response.data.main;
+    
     const weather = {
       city: response.data.name,
       temperature: response.data.main.temp,
       description: response.data.weather[0].description,
     };
-    // const description = response.data.weather[0].description;
-    // res.json({ city, temperature: temp, condition: description });
+   
     res.json(weather);
   } catch (error) {
     res.status(500).json({ error: "Could not fetch weather data." });
